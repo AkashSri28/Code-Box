@@ -1,0 +1,81 @@
+import java.util.*;
+import java.util.function.BiFunction;
+class SegmentTree<T>{
+    private ArrayList<T> segTree;
+    private T sentinel=new T();
+    private BiFunction<T, T, T> action;
+    public SegmentTree(Collection<T> collection, BiFunction<T, T, T> action){
+        ArrayList<T> list=new ArrayList<T>();
+        for(T c:collection){
+            list.add(c);
+        }
+        this.segTree=new ArrayList<T>(Arrays.asList(new T[2*list.size-1]));
+        this.action=action;
+        this.buildSegmentTree(list, 0, this.segTree.size()-1, 0);
+    }
+    private <T>void buildSegmentTree(ArrayList<T> list, int segStart, int segEnd, int pos){
+        if(segStart==segEnd){
+            this.segTree.set(pos, list.get(segStart));
+        }
+        int mid=segStart+(segEnd-segStart)/2;
+        buildSegmentTree(list, segStart, mid, 2*pos+1);
+        buildSegmentTree(list, mid+1, segEnd, 2*pos+2);
+        this.segTree.set(pos, action.apply(this.segTree.get(2*pos+1), this.segTree.get(2*pos+2)));
+    }
+    public <T>T rangeSum(int left, int right){
+        return this.findValue(left, right, 0, this.segTree.size()-1, 0);
+    }
+    private <T>T findValue(int left, int right, int segStart, int segEnd, int pos){
+        if(left>segEnd || right<segStart){
+            return this.sentinel;
+        }
+        if(left==segStart && right==segEnd){
+            return this.segTree.get(pos);
+        }
+        int mid=segStart+(segEnd-segStart)/2;
+        T leftValue=findValue(left, right, segStart, mid, 2*pos+1);
+        T rightValue=findValue(left, right, segStart, mid, 2*pos+1);
+        if(leftValue==sentinel){
+            return rightValue;
+        }
+        if(rightValue==sentinel){
+            return leftValue;
+        }
+        return action.apply(leftValue, rightValue);
+    }
+    public <T>void updateTree(int index, T value){
+        this.updateSegmentTree(index, value, 0, this.segTree.size()-1, 0);
+    } 
+    private <T>void updateSegmentTree(int index, T value, int segStart, int segEnd, int pos){
+        if(segStart==segEnd && index==segStart){
+            this.segTree.set(pos, value);
+        }
+        else if(index>=segStart && index<=segEnd){
+            int mid=segStart+(segEnd-segStart)/2;
+            updateSegmentTree(index, value, segStart, mid, 2*pos+1);
+            updateSegmentTree(index, value, mid+1, segEnd, 2*pos+2);
+            action.apply(this.segTree.get(2*pos+1), this.segTree.get(2*pos+2));
+        }
+    }
+    public void display(){
+        System.out.println(this.segTree);
+    }
+}
+public class Main
+{
+	public static void main(String[] args) {
+	    ArrayList<Integer> list=new ArrayList<Integer>(Arrays.asList(1, 0,-3,6,8,12,-5,7));
+	    BiFunction<Integer, Integer, Integer> action=(a,b)->(a+b);
+	    SegmentTree<Integer> segTree=new SegmentTree<Integer>(list, action);
+	    segTree.display();
+		System.out.println("Sum of first 3 elements:"+segTree.rangeSum(0,2));
+		segTree.updateTree(3, 10);
+		System.out.print("SegmentTree after updating value at index =3 to 10:");
+		segTree.display();
+	}
+}
+
+
+
+
+
