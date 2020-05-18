@@ -11,11 +11,12 @@ class SegmentTree<T>{
         }
         this.segTree=new ArrayList<T>(Arrays.asList(new T[2*list.size-1]));
         this.action=action;
-        this.buildSegmentTree(list, 0, this.segTree.size()-1, 0);
+        this.buildSegmentTree(list, 0, list.size()-1, 0);
     }
     private <T>void buildSegmentTree(ArrayList<T> list, int segStart, int segEnd, int pos){
         if(segStart==segEnd){
             this.segTree.set(pos, list.get(segStart));
+	    return;
         }
         int mid=segStart+(segEnd-segStart)/2;
         buildSegmentTree(list, segStart, mid, 2*pos+1);
