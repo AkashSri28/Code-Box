@@ -35,7 +35,7 @@ class SegmentTree<T>{
         }
         int mid=segStart+(segEnd-segStart)/2;
         T leftValue=findValue(left, right, segStart, mid, 2*pos+1);
-        T rightValue=findValue(left, right, segStart, mid, 2*pos+1);
+        T rightValue=findValue(left, right, mid+1, segEnd, 2*pos+2);
         if(leftValue==sentinel){
             return rightValue;
         }
