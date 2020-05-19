@@ -55,7 +55,7 @@ class SegmentTree<T>{
             int mid=segStart+(segEnd-segStart)/2;
             updateSegmentTree(index, value, segStart, mid, 2*pos+1);
             updateSegmentTree(index, value, mid+1, segEnd, 2*pos+2);
-            action.apply(this.segTree.get(2*pos+1), this.segTree.get(2*pos+2));
+            this.segTree.set(pos, action.apply(this.segTree.get(2*pos+1), this.segTree.get(2*pos+2)));
         }
     }
     public void display(){
