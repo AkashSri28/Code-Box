@@ -1,0 +1,45 @@
+/* Important Concepts
+Total number of permutation of a string of length n = n!
+Total number of permutation of a string of length n when a is repeated 2 times and b is repeated 3 times = n!/(a!*b!)
+Add character to string str: str+"("
+Declare and pass ans variable, no need to return ans from helper function
+*/
+
+/* Approach
+Start with "(" for valid string
+At each step either count of "(" or ")" will be reduced
+Edge case: when remaining "(" < ")"
+when "(" = 0, only ")" will be used
+*/
+
+
+//User function Template for Java
+
+class Solution {
+    
+    public List<String> AllParenthesis(int n) 
+    {
+        // Write your code here
+        int open = n, close = n, target = 2*n;
+        List<String> ans = new ArrayList<String>();
+        String currStr = "(";
+        checkParantheses(open-1, close, currStr, ans);
+        return ans;
+    }
+    public static void checkParantheses(int open, int close, String currStr, List<String> ans){
+        if(close<open){
+            return;
+        }
+        if(open==0){
+            if(close==0){
+                ans.add(currStr);
+                return;
+            }
+            checkParantheses(0, close-1, currStr+")", ans);
+            return;
+        }
+        checkParantheses(open-1, close, currStr+"(", ans);
+        checkParantheses(open, close-1, currStr+")", ans);
+        return;
+    }
+}
