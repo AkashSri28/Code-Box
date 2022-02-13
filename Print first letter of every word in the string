@@ -1,0 +1,29 @@
+/* Approach
+Solved using 2 pointers: for and while
+while we dont see end or space, increment j
+if j finds space, set i to next character
+TC = O(N)
+SC = O(N)
+*/
+
+//User function Template for Java
+
+class Solution {
+    String firstAlphabet(String S) {
+        // code here
+        int len = S.length(), i = 0, j = 0;
+        String firstAlphaStr = new String();
+        for(i=0;i<len;i++){
+            firstAlphaStr = firstAlphaStr + S.charAt(i);
+            j=i+1;
+            while(j<len && S.charAt(j)!=' '){
+                j++;
+            }
+            if(j==len){
+                break;
+            }
+            i=j;
+        }
+        return firstAlphaStr;
+    }
+};
