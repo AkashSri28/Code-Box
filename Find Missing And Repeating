@@ -1,0 +1,46 @@
+/*Important Points
+a^a=0
+a^0=a
+Taking xor of all array elements, removes duplicates 
+rightMostSetBit of a = a&(-a), where -a is 2's complement of a
+a^b^c if any bit is set, odd number of values will have that bit set
+
+*/
+
+class Solve {
+    int[] findTwoElement(int arr[], int n) {
+        // code here
+        int xor=0, i, rsbOn=0, rsbOff=0, rsb, j;
+        int[] ans=new int[2];
+        for(i=0;i<n;i++){
+            xor^=arr[i];
+            xor^=(i+1);
+        }
+        rsb=xor&-xor;
+        for(i=0;i<n;i++){
+            if((arr[i]&rsb)!=0){
+                rsbOn^=arr[i];
+            }
+            else{
+                rsbOff^=arr[i];
+            }
+            j=i+1;
+            if((j&rsb)!=0){
+                rsbOn^=j;
+            }
+            else{
+                rsbOff^=j;
+            }
+        }
+        for(int val:arr){
+            if((rsbOn^val)==0){
+                ans[0]=rsbOn;
+                ans[1]=rsbOff;
+                return ans;
+            }
+        }
+        ans[0]=rsbOff;
+        ans[1]=rsbOn;
+        return ans;
+    }
+}
