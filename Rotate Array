@@ -1,0 +1,53 @@
+/* Algorithm
+AB
+rev(A)+rev(B)
+rev(rev(A)+rev(B))
+BA
+*/
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+ {
+	public static void main (String[] args)
+	 {
+	 //code
+	    Scanner in = new Scanner(System.in);
+	    int T=in.nextInt(), i, N, D, j, l, temp;
+	    int[] arr;
+	    for(i=0;i<T;i++){
+	        N = in.nextInt();
+	        D = in.nextInt();
+	        arr = new int[N];
+	        for(j=0;j<N;j++){
+	            arr[j] = in.nextInt();
+	        }
+	        l=D;
+	        reverse(arr, 0, l-1);
+	        reverse(arr, l, N-1);
+	        reverse(arr, 0, N-1);
+	        for(j=0;j<N;j++){
+	            System.out.print(arr[j] +" ");
+	        }
+	        System.out.println();
+	    }
+	    return;
+	 }
+	 public static void reverse(int[] arr, int i, int j){
+	     while(i<j){
+	         swap(arr, i, j);
+	         i++;
+	         j--;
+	     }
+	     return;
+	 }
+	 public static void swap(int[] arr, int k, int l){
+	     int temp;
+	     temp = arr[l];
+	     arr[l] = arr[k];
+	     arr[k] = temp;
+	     return;
+	 }
+	 
+}
