@@ -1,0 +1,50 @@
+/*Approach
+Direct implementation of DFS algorithm
+create a visited matrix to check if a node is already visited
+for each node each if visited
+else DFS(node)
+for(neighbour:node){
+  if(neighbour! visited)
+    DFS(neightbour)
+}
+
+class Solution {
+    // Function to find the number of islands.
+    public int numIslands(char[][] grid) {
+        // Code here
+        int n=grid.length, m=grid[0].length, i, j, count=0;
+        boolean[][] visited = new boolean[n][m];
+        for(i=0;i<n;i++){
+            for(j=0;j<m;j++){
+                if(grid[i][j]=='1'){
+                    if(!visited[i][j]){
+                        count++;
+                        
+                        dfs(grid, visited, i, j, n, m);
+                    }
+                }
+            }
+        }
+        return count;
+    }
+    public static void dfs(char[][] grid, boolean[][] visited, int i, int j, int n, int m){
+        int k, l;
+        visited[i][j]=true;
+        for(k=i-1;k<=i+1;k++){
+            for(l=j-1;l<=j+1;l++){
+                if(check(k,l,n,m)){
+                    if(grid[k][l]=='1' && !visited[k][l]){
+                        dfs(grid, visited, k, l, n, m);
+                    }
+                }
+            }
+        }
+        return;
+    }
+    public static boolean check(int i, int j, int n, int m){
+        if(i<0 || i==n || j<0 || j==m){
+            return false;
+        }
+        return true;
+    }
+}
