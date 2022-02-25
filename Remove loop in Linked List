@@ -1,3 +1,7 @@
+/* slow and fast pointer method
+Edge cases: check if head is start of cycle
+*/
+
 class Solution
 {
     //Function to remove a loop in the linked list.
