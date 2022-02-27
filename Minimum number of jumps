@@ -1,0 +1,30 @@
+/* 2 pointer Approach */
+
+class Solution{
+    static int minJumps(int[] arr){
+        // your code here
+        int i=0, j, maxInd, maxStep, n=arr.length, jump=0;
+        if(n==1){
+            return jump;
+        }
+        while(i<n-1){
+            if(arr[i] == 0){
+                return -1;
+            }
+            if(i+arr[i]>=n-1){
+                return jump+1;
+            }
+            maxInd = i+1;
+            maxStep = maxInd + arr[maxInd];
+            for(j=i+1;j<n && j<=i+arr[i];j++){
+                if(j+arr[j] > maxStep){
+                    maxInd = j;
+                    maxStep = j+arr[j];
+                }
+            }
+            i=maxInd;
+            jump++;
+        }
+        return jump;
+    }
+}
