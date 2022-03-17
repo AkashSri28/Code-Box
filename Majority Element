@@ -1,0 +1,49 @@
+/* Important points:
+Moore's voting algorithm:
+everytime count becomes 0 restart with new element as major
+TC = O(n) (finding majority) + O(n) (confirming majority element)
+SC= O(1) */
+
+
+class Solution
+{
+    static boolean isMajorityElement(int a[], int major, int size){
+        int count = 0;
+        for(int i:a){
+            if(i==major){
+                count++;
+            }
+        }
+        if(count > size/2){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    static int majorityElement(int a[], int size)
+    {
+        // your code here
+        if(size==1){
+            return a[0];
+        }
+        int major = a[0], count=1;
+        for(int i=1;i<size;i++){
+            if(count==0){
+                major = a[i];
+            }
+	        if(a[i]!=major){
+	            count--;
+	        }
+	        else{
+	            count++;
+	        }
+        }
+        if(isMajorityElement(a, major, size)){
+            return major;
+        }
+	    else{
+	        return -1;
+	    }
+    }
+}
