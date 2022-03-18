@@ -1,0 +1,35 @@
+/* Important points
+TC - O(n), if we check each element 1 by 1
+TC - O(logn), binary search to find peaks
+Draw peak to identify algo*/
+
+class Solution
+{
+	// Function to find the peak element
+	// arr[]: input array
+	// n: size of array a[]
+	public boolean checkPeak(int[] arr, int mid){
+	    if((mid==0 || arr[mid]>=arr[mid-1]) && (mid==arr.length-1 || arr[mid] >= arr[mid+1])){
+	        return true;
+	    }
+	    return false;
+	}
+	public int peakElement(int[] arr,int n)
+    {
+       //add code here.
+       int low=0, high=n-1, mid=0;
+       while(low<=high){
+           mid=low+(high-low)/2;
+           if(checkPeak(arr, mid)){
+               break;
+           }
+           if(mid>0 && arr[mid]<arr[mid-1]){
+               high=mid-1;
+           }
+           else{
+               low=mid+1;
+           }
+       }
+       return mid;
+    }
+}
