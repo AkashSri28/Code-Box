@@ -1,0 +1,26 @@
+/* Important Points
+1. Current number will either start a sub-array or get merged in incoming product
+2. If incoming number is negative, it will change max to min and vice versa, so better to swap beforehand
+TC = O(n)
+SC = O(1)
+*/
+
+class Solution {
+    // Function to find maximum product subarray
+    long maxProduct(int[] arr, int n) {
+        // code here
+        long currMax=arr[0], currMin=arr[0], max=arr[0], temp;
+        int i;
+        for(i=1;i<n;i++){
+            if(arr[i]<0){
+                temp=currMax;
+                currMax=currMin;
+                currMin=temp;
+            }
+            currMax=Math.max(arr[i], currMax*arr[i]);
+            currMin=Math.min(arr[i], currMin*arr[i]);
+            max=Math.max(currMax, max);
+        }
+        return max;
+    }
+}
