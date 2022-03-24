@@ -1,0 +1,38 @@
+/* Important Points
+Pick 2 elements and check their relation, by this at each step 1 will get eliminated
+TC = O(n), SC = O(1)
+*/
+
+class Solution
+{ 
+    //Function to find if there is a celebrity in the party or not.
+    int celebrity(int M[][], int n)
+    {
+    	// code here 
+    	Stack<Integer> stk = new Stack<Integer>();
+    	int i, first, second, candidate;
+    	for(i=0;i<n;i++){
+    	    stk.push(i);
+    	}
+    	while(stk.size()>1){
+    	    first=stk.pop();
+    	    second=stk.pop();
+    	    if(M[first][second]==1){
+    	        stk.push(second);
+    	    }
+    	    else{
+    	        stk.push(first);
+    	    }
+    	}
+    	candidate = stk.pop();
+    	for(i=0;i<n;i++){
+    	    if(i == candidate){
+    	        continue;
+    	    }
+    	    if(M[candidate][i] == 1 || M[i][candidate] == 0){
+    	        return -1;
+    	    }
+    	}
+    	return candidate;
+    }
+}
