@@ -1,0 +1,18 @@
+/*Important Points
+TC= O(|S2|) + O(26) //searching in S1, SC=O(1)
+*/
+
+class Solution {
+    static int findTime(String S1 , String S2) {
+        // code here
+        int currPos=0, index, i, ans=0;
+        char ch;
+        for(i=0;i<S2.length();i++){
+            ch=S2.charAt(i);
+            index=S1.indexOf(ch);
+            ans+=Math.abs(index-currPos);
+            currPos=index;
+        }
+        return ans;
+    }
+};
