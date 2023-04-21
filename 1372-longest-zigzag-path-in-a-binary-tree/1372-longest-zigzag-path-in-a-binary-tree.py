@@ -21,4 +21,8 @@ class Solution(object):
         
         dfs(root, 0, 0)
         return self.maxPathLength
+    
+# TC: O(n)    # DFS
+# SC: O(1)
+# Approach: At each node, find path length till that node both left and right path length
         
